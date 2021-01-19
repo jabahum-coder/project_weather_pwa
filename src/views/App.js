@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
-import { fetchWeather } from './api/fetchWeather';
+import { fetchWeather } from '../api/fetchWeather';
 import './App.css';
 
 const App = () => {
@@ -11,13 +13,18 @@ const App = () => {
         if(e.key === 'Enter') {
             const data = await fetchWeather(query);
 
+           // console.log("data",data);
+
             setWeather(data);
             setQuery('');
         }
     }
 
     return (
+        
         <div className="main-container">
+            <Button variant="btn btn-success" onClick={() => history.push('/Products')}>Click button to view products</Button>
+
             <input type="text"className="search"placeholder="Search..."value={query}onChange={(e) => setQuery(e.target.value)}onKeyPress={search}/>
             {weather.main && (
                 <div className="city">
@@ -36,6 +43,8 @@ const App = () => {
                 </div>
             )}
         </div>
+
+
     );
 }
 
